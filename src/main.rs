@@ -34,6 +34,7 @@
 //!
 //!
 //! We will use macros and attributes to make the code more readable and to avoid boilerplate code.
+//!
 //! We will use the following crates:
 //! - clap for command line parsing
 //! - log for logging
