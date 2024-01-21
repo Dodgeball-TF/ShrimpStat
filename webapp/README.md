@@ -1,12 +1,13 @@
-# shrimpstats API Package
+# shrimpstats WebApp Package
 
-This package contains the API for shrimpstats, which is a data processing and business logic package. It is responsible for handling all the information processing related to shrimpstats and does not include any server-side rendered HTML.
+This package contains the web application for shrimpstats, which focuses on server-side rendered functions and templates using htmx and axum. 
+It also utilizes htmx-ws for streaming content, which requires streaming capabilities.
 
 ## Overview
 
-The shrimpstats API package is designed to handle the business logic and data processing tasks for shrimpstats. It provides a set of functions and classes that can be used to manipulate and analyze data related to shrimpstats.
+The shrimpstats WebApp package is responsible for handling the server-side rendering of shrimpstats. 
+It provides functions and templates that utilize htmx and axum to generate dynamic HTML content.
 
 ## Usage
 
-The shrimpstats API package includes WebSocket endpoints for streaming as well as REST endpoints for CRUD operations.
-These endpoints can be used to establish real-time communication between clients and the shrimpstats API server. 
+The shrimpstats WebApp package includes WebSocket endpoints for streaming and REST endpoints for CRUD operations. These endpoints enable real-time communication between clients and the shrimpstats API server.
