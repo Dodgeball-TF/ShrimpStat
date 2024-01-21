@@ -1,81 +1,48 @@
-# Turborepo starter
+# shrimpstats
 
-This is an official starter Turborepo.
+shrimpstats is a tool to collect and display statistics about TF2. It parses logs and stores them in a database. It also provides a web interface to display the statistics.
 
-## Using this example
+The backend is written in Rust and the frontend in Rust and WebAssembly. The backend is a binary that can be run as a daemon or as a one-shot command. It can be run in a Docker container.
 
-Run the following command:
+## Examples
 
 ```sh
-npx create-turbo@latest
+shrimpstats --help
 ```
 
-## What's inside?
+## Usage
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```sh
+shrimpstats [FLAGS] [OPTIONS]
 ```
 
-### Develop
+## Flags
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```sh
+-h, --help                   Prints help information
+-V, --version                Prints version information
+-a, --address <address>      Sets a custom address
+-p, --port <port>            Sets a custom port
+-d, --database <database>    Sets a custom database name
+-u, --user <user>            Sets a custom user name
+-w, --password <password>    Sets a custom password
+-c, --config <config>        Sets a custom config file
+-l, --log <log>              Sets a custom log file
+-v, --verbose <level>        Sets the level of verbosity
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+We will use macros and attributes to make the code more readable and to avoid boilerplate code.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+We will use the following crates:
 
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [clap](https://crates.io/crates/clap) for command line parsing
+- [log](https://crates.io/crates/log) for logging
+- [env_logger](https://crates.io/crates/env_logger) for logging to stdout
+- [surrealdb](https://crates.io/crates/surrealdb) for the database
+- [serde](https://crates.io/crates/serde) for serialization and deserialization
+- [serde_json](https://crates.io/crates/serde_json) for JSON serialization and deserialization
+- [serde_derive](https://crates.io/crates/serde_derive) for deriving Serialize and Deserialize
+- [chrono](https://crates.io/crates/chrono) for date and time
+- [regex](https://crates.io/crates/regex) for regular expressions
+- [reqwest](https://crates.io/crates/reqwest) for HTTP requests
+- [tokio](https://crates.io/crates/tokio) for asynchronous programming
