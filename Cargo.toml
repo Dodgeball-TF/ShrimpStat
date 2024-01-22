@@ -5,6 +5,7 @@ resolver = "2"
 # We will have a user facing web app and a backend API. However more services may be added in the future.
 
 members = [
-    "webapp",
+    "webapp/axum_htmx",
+    "webapp/yew_csr",
     "api",
 ]
