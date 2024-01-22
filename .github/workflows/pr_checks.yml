@@ -75,7 +75,7 @@ jobs:
 
     - name: Build Webapp
       working-directory: ./webapp
-      run: trunk build --package webapp
+      run: trunk build
 
   test-api:
     runs-on: ubuntu-latest
