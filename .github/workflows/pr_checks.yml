@@ -61,6 +61,7 @@ jobs:
     - name: Set up Rust toolchain
       uses: dtolnay/rust-toolchain@master
       with:
+        target: wasm32-unknown-unknown
         toolchain: stable
 
     - name: Install trunk from crates.io
