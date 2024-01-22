@@ -24,7 +24,7 @@ jobs:
     - name: Clippy for API
       run: cargo clippy --package api
 
-  clippy-webapp:
+  clippy-webapp-yew:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,7 +36,21 @@ jobs:
         toolchain: stable
 
     - name: Clippy for Webapp
-      run: cargo clippy --package webapp
+      run: cargo clippy --package yew_csr
+
+  clippy-webapp-axum:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+
+    - name: Clippy for Webapp
+      run: cargo clippy --package axum_htmx
 
   build-api:
     runs-on: ubuntu-latest
@@ -52,7 +66,7 @@ jobs:
     - name: Build API
       run: cargo build --package api
 
-  build-webapp:
+  build-webapp-yew:
     runs-on: ubuntu-latest
 
     steps:
@@ -75,8 +89,22 @@ jobs:
         crate: wasm-bindgen-cli
 
     - name: Build Webapp
-      working-directory: ./webapp
+      working-directory: ./webapp/yew_csr
       run: trunk build
+
+  build-webapp-axum:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+
+    - name: Build Webapp
+      run: cargo build --package axum_htmx
 
   test-api:
     runs-on: ubuntu-latest
@@ -92,7 +120,7 @@ jobs:
     - name: Test API
       run: cargo test --package api
 
-  test-webapp:
+  test-webapp-yew:
     runs-on: ubuntu-latest
 
     steps:
@@ -114,5 +142,18 @@ jobs:
         crate: wasm-bindgen-cli
 
     - name: Test Webapp
-      working-directory: ./webapp
-      run: cargo test --package webapp
+      run: cargo test --package yew_csr
+
+  test-webapp-axum:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+
+    - name: Test Webapp
+      run: cargo test --package axum_htmx
