@@ -1,6 +1,6 @@
 # shrimpstats WebApp Package
 
-This package contains the web application for shrimpstats, which focuses on server-side rendered functions and templates using htmx and axum. 
+This package contains the web application for shrimpstats, which focuses on server-side rendered functions and templates using htmx and yew. 
 It also utilizes htmx-ws for streaming content, which requires streaming capabilities.
 
 ## Overview

@@ -1,0 +1,18 @@
+[config]
+skip_core_tasks = true
+
+[tasks.build]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.dev]
+command = "cargo"
+args = ["watch", "-x", "run"]
+
+[tasks.run-dev]
+command = "cargo"
+args = ["run", "--release"]
+
+[tasks.ci]
+command = "bash"
+args = ["-c", "cargo clippy --all-targets --all-features && cargo test && cargo build"]
