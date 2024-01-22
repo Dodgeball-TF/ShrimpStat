@@ -184,6 +184,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2bd12c1caf447e69cd4528f47f94d203fd2582878ecb9e9465484c4148a8223"
 
 [[package]]
+name = "c_str_macro"
+version = "1.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c6d44951c469019e225e7667d799052f67fb8ea358d086878f3582b39f0de5e5"
+
+[[package]]
 name = "cc"
 version = "1.0.83"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1289,6 +1295,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "shrimpstats_tf2"
+version = "0.1.0"
+dependencies = [
+ "sm-ext",
+]
+
+[[package]]
 name = "signal-hook-registry"
 version = "1.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1304,6 +1317,26 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f92a496fb766b417c996b9c5e57daf2f7ad3b0bebe1ccfca4856390e3d3bb67"
 dependencies = [
  "autocfg",
+]
+
+[[package]]
+name = "sm-ext"
+version = "0.3.0"
+source = "git+https://github.com/asherkin/sm-ext-rs.git?rev=8e8d87b#8e8d87bdd234ce6acdcd84907e319fe4b73aa8d5"
+dependencies = [
+ "c_str_macro",
+ "libc",
+ "sm-ext-derive",
+]
+
+[[package]]
+name = "sm-ext-derive"
+version = "0.3.0"
+source = "git+https://github.com/asherkin/sm-ext-rs.git?rev=8e8d87b#8e8d87bdd234ce6acdcd84907e319fe4b73aa8d5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
 ]
 
 [[package]]
@@ -1329,6 +1362,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72b64191b275b66ffe2469e8af2c1cfe3bafa67b529ead792a6d0160888b4237"
 dependencies = [
  "proc-macro2",
+ "quote",
  "unicode-ident",
 ]
 
