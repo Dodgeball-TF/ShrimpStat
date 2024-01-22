@@ -1,0 +1,28 @@
+[config]
+skip_core_tasks = true
+
+[tasks.run]
+command = "trunk"
+args = ["serve"]
+
+[tasks.build]
+command = "trunk"
+args = ["build"]
+dependencies = ["clean"]
+
+[tasks.run-dev]
+command = "trunk"
+args = ["watch"]
+
+[tasks.clean]
+command = "trunk"
+args = ["clean"]
+
+[tasks.dependency]
+command = "rustup"
+args = ["target", "add", "wasm32-unknown-unknown"]
+
+[tasks.ci]
+dependencies = ["dependency"]
+command = "bash"
+args = ["-c", "cargo clippy --all-targets --all-features && cargo test && trunk build"]
