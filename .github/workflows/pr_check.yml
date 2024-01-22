@@ -42,7 +42,8 @@ jobs:
       run: cargo build --package api
 
     - name: Build WebApp
-      run: trunk build --package webapp
+      working-directory: ./webapp
+      run: trunk build
 
     - name: Test API
       run: cargo test --package api
