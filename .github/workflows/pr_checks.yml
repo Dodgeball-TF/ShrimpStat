@@ -1,0 +1,118 @@
+name: pr_check
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  clippy-api:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+
+    - name: Clippy for API
+      run: cargo clippy --package api
+
+  clippy-webapp:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+
+    - name: Clippy for Webapp
+      run: cargo clippy --package webapp
+
+  build-api:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+
+    - name: Build API
+      run: cargo build --package api
+
+  build-webapp:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        target: wasm32-unknown-unknown
+        toolchain: stable
+
+    - name: Install trunk from crates.io
+      uses: baptiste0928/cargo-install@v2
+      with:
+        crate: trunk
+
+    - name: Install wasm-bindgen-cli from crates.io
+      uses: baptiste0928/cargo-install@v2
+      with:
+        crate: wasm-bindgen-cli
+
+    - name: Build Webapp
+      working-directory: ./webapp
+      run: trunk build
+
+  test-api:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+
+    - name: Test API
+      run: cargo test --package api
+
+  test-webapp:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Rust toolchain
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+
+    - name: Install trunk from crates.io
+      uses: baptiste0928/cargo-install@v2
+      with:
+        crate: trunk
+
+    - name: Install wasm-bindgen-cli from crates.io
+      uses: baptiste0928/cargo-install@v2
+      with:
+        crate: wasm-bindgen-cli
+
+    - name: Test Webapp
+      working-directory: ./webapp
+      run: cargo test --package webapp
