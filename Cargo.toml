@@ -1,8 +1,10 @@
-[package]
-name = "shrimpstats"
-version = "0.1.0"
-edition = "2021"
+[workspace]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+resolver = "2"
 
-[dependencies]
+# We will have a user facing web app and a backend API. However more services may be added in the future.
+
+members = [
+    "webapp",
+    "api",
+]
