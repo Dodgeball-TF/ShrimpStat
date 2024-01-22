@@ -22,11 +22,6 @@ jobs:
       with:
         toolchain: stable
 
-    - name: Install cargo-make from crates.io
-      uses: baptiste0928/cargo-install@v2
-      with:
-        crate: cargo-make
-
     - name: Install trunk from crates.io
       uses: baptiste0928/cargo-install@v2
       with:
@@ -37,8 +32,21 @@ jobs:
       with:
         crate: wasm-bindgen-cli
 
-    - name: Run CI
-      uses: actions-rs/cargo@v1
-      with:
-        command: make
-        args: ci
+    - name: Clippy for API
+      run: cargo clippy --package api
+
+    - name: Clippy for WebApp
+      run: cargo clippy --package webapp
+
+    - name: Build API
+      run: cargo build --package api
+
+    - name: Build WebApp
+      run: trunk build --package webapp
+
+    - name: Test API
+      run: cargo test --package api
+
+    - name: Test WebApp
+      run: cargo test --package webapp
+
