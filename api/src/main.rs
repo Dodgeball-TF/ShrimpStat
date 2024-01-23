@@ -10,8 +10,10 @@
 )]
 
 mod db;
+mod models;
+mod event_handler;
 
-use crate::db::db::DB;
+use crate::db::DB;
 use axum::{routing::get, Router};
 use surrealdb::engine::remote::ws::Wss;
 

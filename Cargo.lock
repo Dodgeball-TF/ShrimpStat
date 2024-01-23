@@ -96,6 +96,7 @@ name = "api"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "macro_utils",
  "once_cell",
  "serde",
  "surrealdb",
@@ -1989,6 +1990,10 @@ checksum = "2994eeba8ed550fd9b47a0b38f0242bc3344e496483c6180b69139cc2fa5d1d7"
 dependencies = [
  "hashbrown 0.14.3",
 ]
+
+[[package]]
+name = "macro_utils"
+version = "0.1.0"
 
 [[package]]
 name = "matchit"
