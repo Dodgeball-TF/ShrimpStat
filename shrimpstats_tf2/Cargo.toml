@@ -4,13 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-# -C target-feature=+crt-static
-
-# windows target
-[target.'cfg(all(target_arch="x86_64", target_os="windows"))']
-rustfl  = ["-Ctarget-feature=+crt-static"]
+[lib]
+crate-type = ["cdylib"]
 
 
 [dependencies]
-sm-ext = { git = "https://github.com/asherkin/sm-ext-rs.git", rev = "8e8d87b"}
+sm-ext = "0.3.0"

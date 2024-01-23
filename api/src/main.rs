@@ -6,7 +6,8 @@
     clippy::complexity,
     clippy::perf,
     clippy::style,
-    clippy::suspicious
+    clippy::suspicious,
+    clippy::restriction
 )]
 
 use axum::{
@@ -14,16 +15,36 @@ use axum::{
     Router,
 };
 
+use tokio::net::TcpListener;
+
 #[tokio::main]
 async fn main() {
+
+    let x = 5_i32;
+
     let app = Router::new().route("/", get(root));
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    let listener =  match TcpListener::bind("0.0.0.0:3000").await {
+        Ok(x) => x,
+        Err(e) => {
+            println!("Error: {}", e);
+            return;
+        }
 
-    axum::serve(listener, app).await.unwrap();
+    };
+
+
+
+    match axum::serve(listener, app).await {
+        Ok(x) => x,
+        Err(e) => {
+            println!("Error: {}", e);
+            return;
+        }
+    };
 }
 
-// basic handler that responds with a static string
+
 async fn root() -> &'static str {
     "Hello, World!"
 }

@@ -1322,7 +1322,8 @@ dependencies = [
 [[package]]
 name = "sm-ext"
 version = "0.3.0"
-source = "git+https://github.com/asherkin/sm-ext-rs.git?rev=8e8d87b#8e8d87bdd234ce6acdcd84907e319fe4b73aa8d5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bcdcd9d45b7f6d92ab1fa4dc1a9090d59ccdceab4f94aa51991c3ef0d73c8fda"
 dependencies = [
  "c_str_macro",
  "libc",
@@ -1332,7 +1333,8 @@ dependencies = [
 [[package]]
 name = "sm-ext-derive"
 version = "0.3.0"
-source = "git+https://github.com/asherkin/sm-ext-rs.git?rev=8e8d87b#8e8d87bdd234ce6acdcd84907e319fe4b73aa8d5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "75e96380b9fa81d50460fa1240990754e7f5766a74ffa5791f0cf43f50e56fc2"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1589,9 +1591,9 @@ checksum = "42ff0bf0c66b8238c6f3b578df37d0b7848e55df8577b3f74f92a69acceeb825"
 
 [[package]]
 name = "unicode-bidi"
-version = "0.3.14"
+version = "0.3.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f2528f27a9eb2b21e69c95319b30bd0efd85d09c379741b0f78ea1d86be2416"
+checksum = "08f95100a766bf4f8f28f90d77e0a5461bbdb219042e7679bebe79004fed8d75"
 
 [[package]]
 name = "unicode-ident"
