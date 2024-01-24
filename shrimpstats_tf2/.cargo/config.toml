@@ -1,0 +1,16 @@
+# windows target
+[target.x86_64-pc-windows-gnu]
+rustflags  = ["-Ctarget-feature=+crt-static"]
+
+[target.i686-pc-windows-gnu]
+rustflags  = ["-Ctarget-feature=+crt-static"]
+
+[target.i686-pc-windows-msvc]
+rustflags  = ["-Ctarget-feature=+crt-static"]
+
+[target.x86_64-pc-windows-msvc]
+rustflags  = ["-Ctarget-feature=+crt-static"]
+
+# linux target
+[target.x86_64-unknown-linux-gnu]
+rustflags  = ["-Ctarget-feature=+crt-static"]

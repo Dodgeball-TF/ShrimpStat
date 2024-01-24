@@ -8,4 +8,5 @@ members = [
     "webapp/axum_htmx",
     "webapp/yew_csr",
     "api",
+    "shrimpstats_tf2",
 ]
