@@ -1,62 +1,97 @@
-#![feature(proc_macro_quote)]
-#![feature(const_option)]
-#![feature(const_trait_impl)]
-#![feature(const_mut_refs)]
+
+// This macro is used to generate the `EventHandler` enum.
+// It takes a list of PascalCase event names and generates an enum with the same names.
+// the inner struct is also generated with the same name, but in snake_case.
+// the inner struct uses the format crate::models::events::snake_case_name::Inner
+
+// So for example, if you pass in `ServerRegister`, the macro will generate:
+// use crate::models::events;
+//
+// pub enum EventHandler {
+//   ServerRegister(events::server_register::Inner),
+// }
+//
+
+// The inner structs already exist so they just have to be referenced.
+// The enum is generated from the list of names passed in.
 
 use proc_macro::TokenStream;
+use quote::quote;
+use syn::{parse_macro_input, DeriveInput};
 
-// Custom Macro to generate the EventType enum from every submodule under the events module.
-// The field in the enum is PascalCase, the data contained in the enum is the fields name in snake_case and called Inner.
-// It should take in the PascalCase variant name and generate the snake_case field name. It should also import the correct events module.
+#[proc_macro_attribute]
+#[allow(non_snake_case)]
+pub fn UnclassifiedEvent(_attribute: TokenStream, input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
 
-#[proc_macro]
-pub fn event_type_enum(_input: TokenStream) -> TokenStream {
-    // User provided list of PascalCase event names separated by commas.
-    // get event names from token stream
-    let input = _input.to_string();
-    let event_names: Vec<&str> = input.split(',').collect();
+    let variants = match input.data {
+        syn::Data::Enum(e) => e.variants,
+        _ => panic!("EventType can only be derived for enums"),
+    };
 
-    // A use statement for each event module.
-    // use events::server_amend_name;
-    let mut use_statements = String::new();
-    for event_name in event_names.clone() {
-        let event_name = event_name.trim();
-        let event_name_snake_case = pascal_to_snake_case(event_name);
-        use_statements.push_str(&format!("use crate::models::events::{};\n", event_name_snake_case));
+    let mut event_names = Vec::new();
+
+    for variant in variants {
+        let name = variant.ident;
+        event_names.push(name);
     }
 
-    // enum should look like so
-    // enum EventType {
-    //     ServerAmendName(server_amend_name::Inner),
-    //     ServerRegister(server_register::Inner),
-    // }
-    let mut event_type_enum = String::from("enum EventType {\n");
-    for event_name in event_names {
-        let event_name = event_name.trim();
-        let event_name_snake_case = pascal_to_snake_case(event_name);
-        event_type_enum.push_str(&format!("    {}({}::Inner),\n", event_name, event_name_snake_case));
-    }
-    event_type_enum.push_str("}\n");
+    let mut fields = Vec::new();
 
-    // return the use statements and the enum
-    let output = format!("{}\n{}", use_statements, event_type_enum);
-    output.parse().unwrap()
+    for name in event_names.iter() {
+        let snake_case_name = snake_case(&name.to_string());
+        let inner_name = format!("events::{}::Inner", snake_case_name);
+        let inner_name = syn::parse_str::<syn::Type>(&inner_name).unwrap();
+
+        let event_handler = quote! {
+            #name(#inner_name),
+        };
+
+        fields.push(event_handler);
+    }
+
+    // We should also generate an impl for the enum.
+    // Each inner implements the Event trait. It has a single method, handle().
+    // EventMaster also implements the Event trait. It has a single method, handle().
+    // The handle() method for EventMaster will match on the enum and call the handle() method for the inner.
+
+    let event_handler = quote! {
+        use crate::models::events;
+
+        pub enum UnclassifiedEvent {
+            #(#fields)*
+        }
+
+        impl UnclassifiedEvent {
+            pub fn handle(&self) {
+                match self {
+                    #(
+                        UnclassifiedEvent::#event_names(inner) => inner.handle(),
+                    )*
+                }
+            }
+        }
+    };
+
+    event_handler.into()
 }
 
-fn pascal_to_snake_case(s: &str) -> String {
-    let mut snake_case = String::new();
-    let mut prev_char = '_';
 
-    for c in s.chars() {
+
+fn snake_case(s: &str) -> String {
+    // Turn a pacal case string into snake case
+    // Example: ServerRegister -> server_register
+    let mut snake_case = String::new();
+
+    for (i, c) in s.chars().enumerate() {
         if c.is_uppercase() {
-            if prev_char != '_' && !prev_char.is_uppercase() {
+            if i != 0 {
                 snake_case.push('_');
             }
-            snake_case.push(c.to_ascii_lowercase());
+            snake_case.push(c.to_lowercase().next().unwrap());
         } else {
             snake_case.push(c);
         }
-        prev_char = c;
     }
 
     snake_case

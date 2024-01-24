@@ -1,8 +1,7 @@
-use crate::Event;
 use serde::Serialize;
 
-#[derive(Debug, Serialize, Clone)]
-pub struct Inner {
+#[derive(Debug, Serialize)]
+pub struct Server {
     pub uuid: String,
     pub ip: String,
     pub port: u16,
@@ -13,10 +12,4 @@ pub struct Inner {
     pub max_players: u32,
     pub act_map: String,
     pub name: Option<String>,
-}
-
-impl Event for Inner {
-    fn handle(&self) {
-        println!("ServerRegister: {self:?}");
-    }
 }

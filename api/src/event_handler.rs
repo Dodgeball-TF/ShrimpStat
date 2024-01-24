@@ -1,6 +1,21 @@
-use macro_utils::event_type_enum;
+use macro_utils::UnclassifiedEvent;
 
-event_type_enum!(ServerAmendDeaths, ServerAmendKills, ServerAmendMaxPlayers, ServerAmendName, ServerAmendPlayers, ServerRegister);
+pub trait Event {
+  fn handle(&self);
+}
 
-
+#[UnclassifiedEvent]
+pub enum UnclassifiedEvent{
+  ServerAmendActMap,
+  ServerAmendDeaths,
+  ServerAmendIp,
+  ServerAmendKills,
+  ServerAmendMaxPlayers,
+  ServerAmendName,
+  ServerAmendPlayers,
+  ServerAmendPort,
+  ServerAmendRconPassword,
+  ServerDelete,
+  ServerRegister
+}
 

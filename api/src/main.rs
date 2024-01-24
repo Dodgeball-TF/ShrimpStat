@@ -13,6 +13,8 @@ mod db;
 mod models;
 mod event_handler;
 
+pub use event_handler::Event;
+
 use crate::db::DB;
 use axum::{routing::get, Router};
 use surrealdb::engine::remote::ws::Wss;
