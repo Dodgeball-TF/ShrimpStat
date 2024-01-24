@@ -22,6 +22,20 @@ jobs:
       - name: Clippy for API
         run: cargo clippy --package api
 
+  clippy-macro_utils:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+
+      - name: Clippy for macro_utils
+        run: cargo clippy --package macro_utils
+
   clippy-webapp-yew:
     runs-on: ubuntu-latest
 
@@ -104,6 +118,20 @@ jobs:
       - name: Build Webapp
         run: cargo build --package axum_htmx
 
+  build-macro_utils:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+
+      - name: Build macro_utils
+        run: cargo build --package macro_utils
+
   test-api:
     runs-on: ubuntu-latest
 
@@ -155,3 +183,17 @@ jobs:
 
       - name: Test Webapp
         run: cargo test --package axum_htmx
+
+  test-macro_utils:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+
+      - name: Test macro_utils
+        run: cargo test --package macro_utils
