@@ -6,8 +6,7 @@
     clippy::complexity,
     clippy::perf,
     clippy::style,
-    clippy::suspicious,
-    clippy::restriction
+    clippy::suspicious
 )]
 
 use axum::{
@@ -27,7 +26,7 @@ async fn main() {
     let listener =  match TcpListener::bind("0.0.0.0:3000").await {
         Ok(x) => x,
         Err(e) => {
-            println!("Error: {}", e);
+            println!("Error: {e}");
             return;
         }
 
@@ -38,7 +37,7 @@ async fn main() {
     match axum::serve(listener, app).await {
         Ok(x) => x,
         Err(e) => {
-            println!("Error: {}", e);
+            println!("Error: {e}");
             return;
         }
     };
