@@ -17,6 +17,6 @@ pub struct Inner {
 
 impl Event for Inner {
     fn handle(&self) {
-        println!("ServerRegister: {self:?}");
+        println!("PlayerRegister: {self:?}");
     }
 }

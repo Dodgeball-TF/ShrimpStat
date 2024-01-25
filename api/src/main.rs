@@ -10,8 +10,8 @@
 )]
 
 mod db;
-mod models;
 mod event_handler;
+mod models;
 
 pub use event_handler::Event;
 

@@ -1,4 +1,3 @@
-
 // This macro is used to generate the `EventHandler` enum.
 // It takes a list of PascalCase event names and generates an enum with the same names.
 // the inner struct is also generated with the same name, but in snake_case.
@@ -40,7 +39,8 @@ pub fn UnclassifiedEvent(_attribute: TokenStream, input: TokenStream) -> TokenSt
 
     for name in event_names.iter() {
         let snake_case_name = snake_case(&name.to_string());
-        let inner_name = format!("events::{}::Inner", snake_case_name);
+        let event_folder_name = snake_case_name.split('_').next().unwrap().to_lowercase();
+        let inner_name = format!("events::{}::{}::Inner", event_folder_name, snake_case_name);
         let inner_name = syn::parse_str::<syn::Type>(&inner_name).unwrap();
 
         let event_handler = quote! {
@@ -75,8 +75,6 @@ pub fn UnclassifiedEvent(_attribute: TokenStream, input: TokenStream) -> TokenSt
 
     event_handler.into()
 }
-
-
 
 fn snake_case(s: &str) -> String {
     // Turn a pacal case string into snake case
